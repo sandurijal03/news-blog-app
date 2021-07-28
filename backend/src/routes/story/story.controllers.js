@@ -1,5 +1,7 @@
-const Story = require('../../models/Story');
 const paginate = require('express-paginate');
+
+const Story = require('../../models/Story');
+const Comment = require('../../models/Comment');
 
 const createStory = async (req, res) => {
   try {
@@ -64,12 +66,16 @@ const updateStory = async (req, res) => {
 
 const getSingleStory = async (req, res) => {
   try {
-    const story = await Story.findById(req.params.id);
+    let story = await Story.findByIdAndUpdate(req.params.id, {
+      $inc: { viewsCount: 1 },
+    }).populate('category title');
     if (!story) {
       return res.status(404).json({
         message: 'Story with that id is not found.',
       });
     }
+
+    story.comments = await Comment.find({ story: story._id });
 
     return res.status(200).json({
       success: true,
@@ -87,12 +93,13 @@ const getStories = async (req, res) => {
   try {
     const [results, itemCount] = await Promise.all([
       Story.find({})
+        .populate('category title')
         .sort({ createdAt: -1 })
         .limit(req.query.limit)
         .skip(req.skip)
         .lean()
         .exec(),
-      Category.count({}),
+      Story.count({}),
     ]);
 
     const pageCount = Math.ceil(itemCount / req.query.limit);
@@ -115,10 +122,58 @@ const getStories = async (req, res) => {
   }
 };
 
+const getTopStories = async (req, res) => {
+  try {
+    let results = Story.find({})
+      .populate('category title')
+      .sort({ viewsCount: -1 })
+      .limit(req.query.limit)
+      .lean()
+      .exec();
+
+    return res.status(200).json({
+      success: true,
+      data: results,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};
+
+const getOneBySlug = async (req, res) => {
+  try {
+    let story = await Story.findByIdAndUpdate(req.params.slug, {
+      $inc: { viewsCount: 1 },
+    }).populate('category title');
+    if (!story) {
+      return res.status(404).json({
+        message: 'Story with that id is not found.',
+      });
+    }
+
+    story.comments = await Comment.find({ story: story._id });
+
+    return res.status(200).json({
+      success: true,
+      story,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};
+
 module.exports = {
   createStory,
   deleteStory,
   updateStory,
   getSingleStory,
   getStories,
+  getTopStories,
+  getOneBySlug,
 };
