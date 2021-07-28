@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
 
 const {
   Types: { ObjectId },
@@ -44,6 +45,6 @@ const storySchema = new Schema(
   { timestamps: true },
 );
 
-const Story = model('Story', storySchema);
+storySchema.plugin(uniqueValidator);
 
-module.exports = Story;
+module.exports = model('Story', storySchema);
