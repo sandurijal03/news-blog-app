@@ -11,8 +11,8 @@ const videoSchema = new Schema(
       required: true,
     },
     title: {
-      type: ObjectId,
-      ref: 'Story',
+      type: String,
+      required: true,
     },
     createdBy: {
       type: ObjectId,
