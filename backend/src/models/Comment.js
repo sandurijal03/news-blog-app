@@ -1,5 +1,9 @@
 const { Schema, model } = require('mongoose');
 
+const {
+  Types: { ObjectId },
+} = Schema;
+
 const commentSchema = new Schema(
   {
     body: {
