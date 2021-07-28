@@ -15,6 +15,8 @@ const profileRouter = require('./routes/profile/profile.routes');
 const storyRouter = require('./routes/story/story.routes');
 const videoRouter = require('./routes/video/video.routes');
 
+require('./middlewares/passport-middleware')(passport);
+
 const app = express();
 
 const runServer = async () => {
