@@ -187,7 +187,7 @@ const resetPassword = async (req, res) => {
   }
 };
 
-const changePassword = async () => {
+const changePassword = async (req, res) => {
   try {
     let { oldPassword, newPassword } = req.body;
     const user = await User.findById(req.user._id);
