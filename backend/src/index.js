@@ -27,7 +27,7 @@ const runServer = async () => {
 
     app.use(paginate.middleware(process.env.LIMIT, process.env.MAX_LIMIT));
 
-    app.use('/api', authRouter);
+    app.use('/api/auth', authRouter);
     app.use('/api', adminRouter);
     app.use('/api/category', categoryRouter);
     app.use('/api/comments', commentRouter);
