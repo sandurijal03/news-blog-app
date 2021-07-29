@@ -1,15 +1,16 @@
 const { Router } = require('express');
 
-const {
-  ensureauthenticated,
-  ensureauthorized,
-} = require('../../middlewares/auth-middleware');
+const { ensureauthenticated } = require('../../middlewares/auth-middleware');
 const { createComment, deleteComment } = require('./comments.controllers');
 
 const router = Router();
 
-router.post('/', ensureauthenticated, createComment);
+router.post('/', ensureauthenticated, async (req, res) => {
+  await createComment(req, res);
+});
 
-router.delete('/:id', ensureauthenticated, deleteComment);
+router.delete('/:id', ensureauthenticated, async (req, res) => {
+  await deleteComment(req, res);
+});
 
 module.exports = router;

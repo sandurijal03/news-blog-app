@@ -12,14 +12,18 @@ router.get(
   '/users',
   ensureauthenticated,
   ensureauthorized(['admin']),
-  getAllAdmin,
+  async (req, res) => {
+    await getAllAdmin(req, res);
+  },
 );
 
 router.get(
   '/users/:id',
   ensureauthenticated,
   ensureauthorized(['admin']),
-  getSingleAdmin,
+  async (req, res) => {
+    await getSingleAdmin(req, res);
+  },
 );
 
 module.exports = router;

@@ -14,29 +14,39 @@ const {
 
 const router = Router();
 
-router.get('/', getCategories);
+router.get('/', async (req, res) => {
+  await getCategories(req, res);
+});
 
 router.post(
   '/',
   ensureauthenticated,
   ensureauthorized(['admin']),
-  createCategory,
+  async (req, res) => {
+    await createCategory(req, res);
+  },
 );
 
-router.get('/:id', getSingleCategory);
+router.get('/:id', async (req, res) => {
+  await getSingleCategory(req, res);
+});
 
 router.put(
   '/:id',
   ensureauthenticated,
   ensureauthorized(['admin']),
-  updateCategory,
+  async (req, res) => {
+    await updateCategory(req, res);
+  },
 );
 
 router.delete(
   '/:id',
   ensureauthenticated,
   ensureauthorized(['admin']),
-  deleteCategory,
+  async (req, res) => {
+    await deleteCategory(req, res);
+  },
 );
 
 module.exports = router;

@@ -17,28 +17,47 @@ const {
   getTopStories,
 } = require('./story.controllers');
 
-router.get('/', getStories);
+router.get('/', async (req, res) => {
+  await getStories(req, res);
+});
 
-router.get('/top', getTopStories);
+router.get('/top', async (req, res) => {
+  await getTopStories(req, res);
+});
 
-router.get('/slug/:slug', getOneBySlug);
+router.get('/slug/:slug', async (req, res) => {
+  await getOneBySlug(req, res);
+});
 
-router.post('/', ensureauthenticated, ensureauthorized(['admin']), createStory);
+router.post(
+  '/',
+  ensureauthenticated,
+  ensureauthorized(['admin']),
+  async (req, res) => {
+    await createStory(req, res);
+  },
+);
 
-router.get('/:id', getSingleStory);
+router.get('/:id', async (req, res) => {
+  await getSingleStory(req, res);
+});
 
 router.put(
   '/:id',
   ensureauthenticated,
   ensureauthorized(['admin']),
-  updateStory,
+  async (req, res) => {
+    await updateStory(req, res);
+  },
 );
 
 router.delete(
   '/:id',
   ensureauthenticated,
   ensureauthorized(['admin']),
-  deleteStory,
+  async (req, res) => {
+    await deleteStory(req, res);
+  },
 );
 
 module.exports = router;
