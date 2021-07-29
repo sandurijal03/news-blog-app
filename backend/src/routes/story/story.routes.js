@@ -1,4 +1,7 @@
+const path = require('path');
+
 const { Router } = require('express');
+const multer = require('multer');
 
 const {
   ensureauthenticated,
@@ -17,6 +20,23 @@ const {
   getTopStories,
 } = require('./story.controllers');
 
+const PATH = '../../public';
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, PATH));
+  },
+  filename: (req, file, cb) => {
+    const fileName = Date.now() + path.extname(file.originalName);
+    req.body.imageUrl = fileName;
+    cb(null, fileName);
+  },
+});
+
+const upload = multer({
+  storage,
+});
+
 router.get('/', async (req, res) => {
   // #swagger.tags = ['Posts']
   await getStories(req, res);
@@ -31,6 +51,13 @@ router.get('/slug/:slug', async (req, res) => {
   // #swagger.tags = ['Posts']
   await getOneBySlug(req, res);
 });
+
+router.post(
+  '/',
+  ensureauthenticated,
+  ensureauthorized(['admin']),
+  upload.any('files'),
+);
 
 router.post(
   '/',

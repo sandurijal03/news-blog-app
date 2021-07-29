@@ -10,6 +10,10 @@ const createStory = async (req, res) => {
       createdBy: req.user._id,
     });
 
+    if (!newStory.slug) {
+      newStory.slug = generateSlug(newStory.title);
+    }
+
     await newStory.save();
     return res.status(201).json({
       message: 'Story successfully created',
@@ -166,6 +170,20 @@ const getOneBySlug = async (req, res) => {
       message: err.message,
     });
   }
+};
+
+const generateSlug = (title) => {
+  const slugText = title
+    .toString()
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^\w\-]+/g, '')
+    .replace(/\-\-+/g, '-')
+    .replace(/^-+/, '')
+    .replace(/-+$/, '');
+
+  return slugText;
 };
 
 module.exports = {
