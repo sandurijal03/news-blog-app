@@ -13,6 +13,12 @@ router.get(
   ensureauthenticated,
   ensureauthorized(['admin']),
   async (req, res) => {
+    /*
+        #swagger.tags = ['Admin']
+        #swagger.security = [{
+            "Authorization": []
+        }]
+    */
     await getAllAdmin(req, res);
   },
 );
@@ -22,6 +28,12 @@ router.get(
   ensureauthenticated,
   ensureauthorized(['admin']),
   async (req, res) => {
+    /*
+        #swagger.tags = ['Admin']
+        #swagger.security = [{
+            "Authorization": []
+        }]
+    */
     await getSingleAdmin(req, res);
   },
 );
