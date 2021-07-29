@@ -993,50 +993,188 @@
       }
     }
   },
-  "definitions": {},
-  "definition": {
+  "definitions": {
     "LoginModel": {
-      "$email": "admin@admin.com",
-      "$password": "admin123"
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "admin@admin.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "admin123"
+        }
+      },
+      "required": [
+        "email",
+        "password"
+      ]
     },
     "RegisterModel": {
-      "$name": "John Snow",
-      "$email": "mail@mail.com",
-      "$password": "Password123#"
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "John Snow"
+        },
+        "email": {
+          "type": "string",
+          "example": "mail@mail.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "Password123#"
+        }
+      },
+      "required": [
+        "name",
+        "email",
+        "password"
+      ]
     },
     "UpdateUserModel": {
-      "$name": "John Snow"
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "John Snow"
+        }
+      },
+      "required": [
+        "name"
+      ]
     },
     "CategoryModel": {
-      "$title": "Comedy"
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "Comedy"
+        }
+      },
+      "required": [
+        "title"
+      ]
     },
     "StoryModel": {
-      "$category": "6064e654b5c7475bac63ad22",
-      "$title": "Elon Musk Admits He Wants to Travel to Mars Because No One Hates Him There Yet",
-      "$body": "AUSTIN, Texas — Wiping tears from his eyes at a recent press conference, SpaceX CEO Elon Musk revealed that the reason he’s so keen on traveling to Mars is not for the potential benefits to science, but because it’s the one place he can think of where no one hates him yet."
+      "type": "object",
+      "properties": {
+        "category": {
+          "type": "string",
+          "example": "6064e654b5c7475bac63ad22"
+        },
+        "title": {
+          "type": "string",
+          "example": "Elon Musk Admits He Wants to Travel to Mars Because No One Hates Him There Yet"
+        },
+        "body": {
+          "type": "string",
+          "example": "AUSTIN, Texas — Wiping tears from his eyes at a recent press conference, SpaceX CEO Elon Musk revealed that the reason he’s so keen on traveling to Mars is not for the potential benefits to science, but because it’s the one place he can think of where no one hates him yet."
+        }
+      },
+      "required": [
+        "category",
+        "title",
+        "body"
+      ]
     },
     "VideoModel": {
-      "$videoId": "QWhJqvuB1ZA",
-      "$title": "Welcome To America with Gad Elmaleh and Ron Livingston"
+      "type": "object",
+      "properties": {
+        "videoId": {
+          "type": "string",
+          "example": "QWhJqvuB1ZA"
+        },
+        "title": {
+          "type": "string",
+          "example": "Welcome To America with Gad Elmaleh and Ron Livingston"
+        }
+      },
+      "required": [
+        "videoId",
+        "title"
+      ]
     },
     "CommentModel": {
-      "$story": "606576d16bb28e33ecf2872c",
-      "$body": "That's very funny (:"
+      "type": "object",
+      "properties": {
+        "story": {
+          "type": "string",
+          "example": "606576d16bb28e33ecf2872c"
+        },
+        "body": {
+          "type": "string",
+          "example": "That's very funny (:"
+        }
+      },
+      "required": [
+        "story",
+        "body"
+      ]
     },
     "VerifyEmailModel": {
-      "$code": 333333
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "number",
+          "example": 333333
+        }
+      },
+      "required": [
+        "code"
+      ]
     },
     "ChangePasswordModel": {
-      "$oldPassword": "Password123#",
-      "$newPassword": "Password789#"
+      "type": "object",
+      "properties": {
+        "oldPassword": {
+          "type": "string",
+          "example": "Password123#"
+        },
+        "newPassword": {
+          "type": "string",
+          "example": "Password789#"
+        }
+      },
+      "required": [
+        "oldPassword",
+        "newPassword"
+      ]
     },
     "ForgotPassWordModel": {
-      "$email": "sandy@gmail.com"
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "sandy@gmail.com"
+        }
+      },
+      "required": [
+        "email"
+      ]
     },
     "ResetPasswordModel": {
-      "$email": "sandy@gmail.com",
-      "$code": 999999,
-      "$newPassword": "Password789#"
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "sandy@gmail.com"
+        },
+        "code": {
+          "type": "number",
+          "example": 999999
+        },
+        "newPassword": {
+          "type": "string",
+          "example": "Password789#"
+        }
+      },
+      "required": [
+        "email",
+        "code",
+        "newPassword"
+      ]
     }
   }
 }

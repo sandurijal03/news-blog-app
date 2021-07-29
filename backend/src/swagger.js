@@ -40,7 +40,7 @@ const doc = {
       scheme: 'bearer',
     },
   },
-  definition: {
+  definitions: {
     LoginModel: {
       $email: 'admin@admin.com',
       $password: 'admin123',
