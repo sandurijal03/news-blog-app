@@ -5,17 +5,12 @@ const express = require('express');
 const cors = require('cors');
 const paginate = require('express-paginate');
 const passport = require('passport');
-const connectDB = require('./db/connectDB');
-
-const authRouter = require('./routes/auth/auth.routes');
-const adminRouter = require('./routes/admin/admin.routes');
-const categoryRouter = require('./routes/category/category.routes');
-const commentRouter = require('./routes/comments/comments.routes');
-const profileRouter = require('./routes/profile/profile.routes');
-const storyRouter = require('./routes/story/story.routes');
-const videoRouter = require('./routes/video/video.routes');
-
 require('./middlewares/passport-middleware')(passport);
+const swaggeUi = require('swagger-ui-express');
+
+const swaggerFile = require('./swagger_output.json');
+const connectDB = require('./db/connectDB');
+const router = require('./routes');
 
 const app = express();
 
@@ -29,13 +24,9 @@ const runServer = async () => {
 
     app.use(paginate.middleware(process.env.LIMIT, process.env.MAX_LIMIT));
 
-    app.use('/api/auth', authRouter);
-    app.use('/api', adminRouter);
-    app.use('/api/category', categoryRouter);
-    app.use('/api/comments', commentRouter);
-    app.use('/api/profile', profileRouter);
-    app.use('/api/stories', storyRouter);
-    app.use('/api/videos', videoRouter);
+    app.use(router);
+
+    app.use('/doc', swaggeUi.serve, swaggeUi.setup(swaggerFile));
 
     const port = process.env.PORT;
     app.listen(port, () => console.log(`listening to server on port ${port}`));
